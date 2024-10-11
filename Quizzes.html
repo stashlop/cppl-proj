@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes - Learnix</title>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #d8c173;
+            --text-color: #333;
+            --bg-color: #f4f4f4;
+            --transparent-bg: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%; /* Ensure the body takes up the full height */
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* Arrange children in a column */
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: none; /* Remove border for buttons */
+            cursor: pointer; /* Change cursor for buttons */
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+
+        main {
+            flex: 1; /* Allow main to grow and fill the space */
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Quiz section styles */
+        .quiz-form {
+            padding: 2rem;
+            background-color: var(--transparent-bg);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+            text-align: left;
+            margin-bottom: 1rem; /* Space between questions */
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            margin-bottom: 1rem;
+        }
+
+        input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        button {
+            margin-top: 1rem;
+        }
+
+        /* Add question form styles */
+        .add-question-form {
+            padding: 2rem;
+            background-color: var(--transparent-bg);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            display: flex;
+            background-color: rgba(105, 106, 113, 0.427);
+            padding: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer a {
+            color: rgb(14, 14, 14);
+            text-decoration: none;
+            padding: 14px 20px;
+        }
+
+        .copyright {
+            color: #000000;
+            margin-left: auto;
+            padding-right: 15px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo" role="banner">Learnix</div>
+            <nav role="navigation">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="login.html" class="cta-button">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2>Take a Quiz</h2>
+        <div class="quiz-form" id="quiz-container">
+            <form action="submit_quiz.php" method="POST">
+                <h3>What is Ohm's Law?</h3>
+                <input type="radio" id="option1" name="quiz1" value="V=IR">
+                <label for="option1">V = IR</label><br>
+                <input type="radio" id="option2" name="quiz1" value="I=V/R">
+                <label for="option2">I = V/R</label><br>
+                <input type="radio" id="option3" name="quiz1" value="R=IV">
+                <label for="option3">R = IV</label><br>
+                <button type="submit" class="cta-button">Submit</button>
+            </form>
+        </div>
+
+        <!-- Add Quiz Button -->
+        <button id="add-quiz" class="cta-button" style="margin-top: 20px;">Add Random Programming Question</button>
+
+        <div id="score-container" style="margin-top: 20px;">
+            <p style="font-weight: bold;">Your Score: <span id="score">0</span></p>
+        </div>
+
+        <!-- Form to Add Custom Questions -->
+        <div class="add-question-form">
+            <h3>Add Your Own Question</h3>
+            <input type="text" id="custom-question" placeholder="Enter your question" required><br><br>
+            <input type="text" id="custom-option1" placeholder="Option 1" required>
+            <input type="text" id="custom-option2" placeholder="Option 2" required>
+            <input type="text" id="custom-option3" placeholder="Option 3" required><br><br>
+            <input type="text" id="custom-answer" placeholder="Correct answer" required><br><br>
+            <button id="submit-custom-question" class="cta-button">Add Question</button>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <a href="#">FAQ</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="copyright">&copy; 2024 | Learnix</div>
+    </footer>
+    
+    <!-- Flickity JS files -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+    <script>
+        // Array of random programming questions
+        const programmingQuestions = [
+            {
+                question: "What does HTML stand for?",
+                options: ["Hyper Text Markup Language", "High Text Markup Language", "Hyperlinks and Text Markup Language"],
+                correctAnswer: "Hyper Text Markup Language"
+            },
+            {
+                question: "Which programming language is primarily used for web development?",
+                options: ["Python", "Java", "JavaScript"],
+                correctAnswer: "JavaScript"
+            },
+            {
+                question: "What is the correct syntax for referring to an external script called 'script.js'?",
+                options: ["<script src='script.js'>", "<script href='script.js'>", "<script ref='script.js'>"],
+                correctAnswer: "<script src='script.js'>"
+            },
+            {
+                question: "Which of the following is a JavaScript framework?",
+                options: ["Django", "React", "Laravel"],
+                correctAnswer: "React"
+            },
+            {
+                question: "What does CSS stand for?",
+                options: ["Cascading Style Sheets", "Cascading Simple Sheets", "Computer Style Sheets"],
+                correctAnswer: "Cascading Style Sheets"
+            }
+        ];
+
+        let score = 0; // Initialize score
+        const displayedQuestions = new Set(); // Track displayed questions
+
+        document.getElementById("add-quiz").addEventListener("click", function() {
+            // Select a random question from the programmingQuestions array
+            const randomIndex = Math.floor(Math.random() * programmingQuestions.length);
+            const selectedQuestion = programmingQuestions[randomIndex];
+
+            // Ensure the selected question hasn't been displayed already
+            while (displayedQuestions.has(selectedQuestion.question)) {
+                if (displayedQuestions.size === programmingQuestions.length) {
+                    alert("All questions have been displayed!");
+                    return; // Exit if all questions have been displayed
+                }
+                randomIndex = Math.floor(Math.random() * programmingQuestions.length);
+                selectedQuestion = programmingQuestions[randomIndex];
+            }
+            displayedQuestions.add(selectedQuestion.question); // Add question to the set
+
+            // Create a new question element
+            const newQuestion = document.createElement("div");
+            newQuestion.className = "quiz-form"; // Class for styling
+            newQuestion.innerHTML = `
+                <h3>${selectedQuestion.question}</h3>
+                ${selectedQuestion.options.map((option, index) => `
+                    <input type="radio" id="option${index}" name="randomQuiz${displayedQuestions.size}" value="${option}" onchange="updateScore(this, '${selectedQuestion.correctAnswer}')">
+                    <label for="option${index}">${option}</label><br>
+                `).join('')}
+            `;
+            document.getElementById("quiz-container").appendChild(newQuestion);
+        });
+
+        // Update score function
+        function updateScore(selectedOption, correctAnswer) {
+            if (selectedOption.value === correctAnswer) {
+                score += 1; // Increment score if the answer is correct
+            } else {
+                score -= 1; // Decrement score if the answer is wrong
+            }
+            document.getElementById("score").innerText = score; // Update score display
+        }
+
+        // Add custom question functionality
+        document.getElementById("submit-custom-question").addEventListener("click", function() {
+            const customQuestion = document.getElementById("custom-question").value;
+            const customOption1 = document.getElementById("custom-option1").value;
+            const customOption2 = document.getElementById("custom-option2").value;
+            const customOption3 = document.getElementById("custom-option3").value;
+            const customAnswer = document.getElementById("custom-answer").value;
+
+            // Validate the input
+            if (!customQuestion || !customOption1 || !customOption2 || !customOption3 || !customAnswer) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Create new question object and add to programmingQuestions array
+            const newQuestionObj = {
+                question: customQuestion,
+                options: [customOption1, customOption2, customOption3],
+                correctAnswer: customAnswer
+            };
+            programmingQuestions.push(newQuestionObj);
+
+            // Clear input fields
+            document.getElementById("custom-question").value = "";
+            document.getElementById("custom-option1").value = "";
+            document.getElementById("custom-option2").value = "";
+            document.getElementById("custom-option3").value = "";
+            document.getElementById("custom-answer").value = "";
+
+            alert("Question added successfully!");
+        });
+    </script>
+</body>
+</html>

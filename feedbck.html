@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnix - Feedback</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #d8c173;
+            --text-color: #333;
+            --bg-color: #ffffff;
+            --transparent-bg: rgb(255, 255, 255);
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative; /* Relative positioning for the background */
+        }
+
+        .gif-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place behind other content */
+            object-fit: cover; /* Ensure the GIF covers the entire background */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative; /* For absolute children */
+            z-index: 1; /* Bring content above the background */
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+            z-index: 2; /* Bring header above background */
+            position: relative; /* Ensure header stays above the background */
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: #595454;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+
+        main {
+            padding: 4rem 0;
+        }
+
+        .feedback-form {
+            position: relative; /* For the shape positioning */
+            z-index: 2; /* Bring form above background */
+            padding: 2rem;
+            background-color: rgba(87, 87, 87, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feedback-form::before {
+            content: '';
+            position: absolute;
+            top: -20px; /* Adjust to position the shape */
+            left: -20px; /* Adjust to position the shape */
+            right: -20px; /* Adjust to position the shape */
+            bottom: -20px; /* Adjust to position the shape */
+            background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent white */
+            border-radius: 15px; /* Rounded corners */
+            z-index: -1; /* Place behind the form */
+            filter: blur(8px); /* Optional: add a blur effect for more depth */
+        }
+
+        .feedback-form h2 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #9c9a9a;
+            border-radius: 5px;
+        }
+
+        footer {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.427);
+            padding: 1rem;
+            justify-content: space-between;
+            z-index: 2; /* Bring footer above background */
+            position: relative; /* Ensure footer stays above the background */
+        }
+
+        footer a {
+            color: rgb(14, 14, 14);
+            text-decoration: none;
+            padding: 14px 20px;
+        }
+
+        .copyright {
+            color: #000000;
+            margin-left: auto;
+            padding-right: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- AVIF Background -->
+<img src="school-college.avif" alt="Background AVIF" class="gif-background"> <!-- Replace with your AVIF file -->
+
+
+    <header>
+        <div class="container header-content">
+            <div class="logo" role="banner">Learnix</div>
+            <nav role="navigation">
+                <ul>
+                    <li><a href="home.html">Home Page</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="signup.html">Join Us</a></li>
+                    <li><a href="contact.html" class="cta-button">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="feedback-form">
+                <h2>We value your feedback!</h2>
+                <p>Please let us know your thoughts about our platform.</p>
+                <form action="submit_feedback.php" method="POST" onsubmit="return showFeedbackMessage();">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="feedback">Feedback:</label>
+                    <textarea id="feedback" name="feedback" rows="5" required></textarea>
+
+                    <button type="submit" class="cta-button">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <a href="#">FAQ</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="copyright">&copy; 2024 | Learnix</div>
+    </footer>
+
+    <!-- Flickity JS files -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script>
+        function showFeedbackMessage() {
+            // Prevent the default form submission
+            event.preventDefault(); // Prevent actual form submission
+            alert("Thank you for your feedback! We appreciate your input.");
+            return false; // Return false to prevent form submission
+        }
+    </script>
+</body>
+</html>
