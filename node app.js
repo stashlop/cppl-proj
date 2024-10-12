@@ -15,8 +15,8 @@ app.use(express.static(path.join('C:/Users/hhhhh/OneDrive/Desktop/CPPL')));
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root', // Use your MySQL username
-    password: 'Lopes#2004', // Use your MySQL password
-    database: 'mydatabase'
+    password: 'put your password', // Use your MySQL password
+    database: 'mydatabase'// database name
 });
 
 // Establish the connection
