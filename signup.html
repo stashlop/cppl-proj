@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body {
+            background-image: url('back.png'); /* Add your background image URL here */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height of the viewport */
+            margin: 0; /* Remove default margin */
+        }
+        .signup-container {
+            background-color: rgba(255, 255, 255, 0.85); /* More transparent */
+            padding: 30px; /* Increased padding */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* More pronounced shadow for depth */
+            width: 400px; /* Adjusted fixed width */
+            text-align: center; /* Center text */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+        }
+        .signup-container:hover {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent on hover */
+            transform: translateY(-5px); /* Slight upward movement on hover */
+        }
+        h2 {
+            margin-bottom: 20px; /* Space below the heading */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 20px); /* Full width minus padding */
+            padding: 10px;
+            margin: 10px 0; /* Space between inputs */
+            border: 1px solid #ccc; /* Border color */
+            border-radius: 5px; /* Rounded corners */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent input */
+        }
+        input[type="submit"] {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none; /* Remove border */
+            padding: 12px; /* Increased padding */
+            border-radius: 5px;
+            cursor: pointer; /* Pointer on hover */
+            font-size: 16px; /* Slightly larger text */
+            margin-top: 10px; /* Space above the button */
+            width: 100%; /* Full width */
+            transition: background-color 0.3s ease; /* Smooth transition for button hover */
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        .toggle-password {
+            display: flex;
+            align-items: center; /* Center align toggle elements */
+            margin-top: -10px; /* Negative margin to reduce space */
+        }
+        .toggle-password input {
+            margin-right: 5px; /* Space between input and checkbox */
+        }
+        a {
+            display: block; /* Makes the link a block element */
+            margin-top: 15px; /* Space above the link */
+            color: #333; /* Text color */
+            text-decoration: none; /* Remove underline */
+        }
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Signup</h2>
+        <form action="/signup" method="POST">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+            <div class="toggle-password">
+                <input type="checkbox" id="showPassword">
+                <label for="showPassword">Show Password</label>
+            </div>
+            <input type="submit" value="Signup">
+        </form>
+        <a href="login.html">Already have an account? Login here</a>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const showPasswordCheckbox = document.getElementById('showPassword');
+
+        showPasswordCheckbox.addEventListener('change', function() {
+            // Toggle password visibility
+            passwordInput.type = this.checked ? 'text' : 'password';
+        });
+    </script>
+</body>
+</html>
